@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+:root {
+  --font-display: "roboto", "sans-serif";
+  color: #0e0e0e;
+  background-color: #f5f5f5;
+  --color-bg-primary: #2bd9af;
+}
+
+@layer utilities {
+  .bg-mens {
+    color: #2bd9af;
+  }
+  .bg-womens {
+    color: #ff5e84;
+  }
+}

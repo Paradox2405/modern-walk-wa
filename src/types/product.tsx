@@ -10,3 +10,11 @@ export interface Product {
     count: number;
   };
 }
+
+export type ProductCategory = "men's clothing" | "women's clothing";
+
+export function isProductCategory(
+  category: string
+): category is ProductCategory {
+  return ["men's clothing", "women's clothing"].includes(category);
+}

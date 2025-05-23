@@ -1,6 +1,6 @@
 interface ProductCardProps {
   title: string;
-  price: string;
+  price: number;
   imageUrl: string;
   description?: string;
   category: string;
@@ -15,33 +15,35 @@ export default function ProductCard({
 }: ProductCardProps) {
   const isMenCategory = category === "men's clothing";
   return (
-    <div className={`w-80 bg-white rounded-3xl shadow-lg overflow-hidden `}>
-      <h3 className="text-lg font-bold text-gray-900 line-clamp-2">{title}</h3>
+    <div
+      className={` bg-white rounded-3xl shadow-lg drop-shadow-xl overflow-hidden `}
+    >
+      <h3 className="text-center font-bold text-gray-900 px-8 py-4 truncate">
+        {title}
+      </h3>
 
-      <div className="h-64 bg-gray-100 flex items-center justify-center">
+      <div className="h-48 flex items-center justify-center px-20 py-4">
         <img
           src={imageUrl}
           alt={title}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-contain"
         />
       </div>
 
-      {/* Content Section */}
       <div
-        className={`p-6 ${
+        className={`p-4 ${
           isMenCategory ? "bg-mens" : "bg-womens"
         } rounded-t-3xl`}
       >
-        {/* Title and Price */}
-        <div className="flex justify-between items-start mb-3">
-          <span className="text-xl font-bold text-blue-600 whitespace-nowrap ml-4">
-            {price}
+        <div className="flex justify-center items-start mb-2">
+          <span className="text-2xl  font-bold text-price-font whitespace-nowrap ml-4">
+            Rs {price}
           </span>
         </div>
-
-        {/* Description */}
         {description && (
-          <p className="text-gray-700 line-clamp-3">{description}</p>
+          <p className="text-black-font font-normal text-center line-clamp-3">
+            {description}
+          </p>
         )}
       </div>
     </div>

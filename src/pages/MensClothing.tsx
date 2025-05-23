@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ProductCard from "../components/ui/ProductCard";
 import type { Product } from "../types/product";
 import { LocalStorageService } from "../services/LocalStorageService";
-import { fetchAllClothingProducts } from "../services/FakeStoreService";
+import { fetchMensClothing } from "../services/FakeStoreService";
 
 export default function MensClothing() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -22,12 +22,7 @@ export default function MensClothing() {
           setLoading(false);
           return;
         }
-
-        const allProducts = await fetchAllClothingProducts();
-
-        const mensProducts = allProducts.filter(
-          (product) => product.category === "men's clothing"
-        );
+        const mensProducts = await fetchMensClothing();
         setProducts(mensProducts);
       } catch (err) {
         setError(
@@ -57,7 +52,7 @@ export default function MensClothing() {
               <ProductCard
                 title={product.title}
                 description={product.description}
-                price={`$${product.price}`}
+                price={product.price}
                 imageUrl={product.image}
                 category={product.category}
               />

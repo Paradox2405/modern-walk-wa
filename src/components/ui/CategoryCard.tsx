@@ -12,14 +12,14 @@ export default function CategoryCard({
   backgroundColor,
 }: CategoryCardProps) {
   return (
-    <Link to={path}>
-      <div
-        className={`relative ${backgroundColor} w-[1660px] h-[878px] rounded-[120px] shadow-lg`}
-      >
-        <div className="absolute inset-0 rounded-[60px] bg-current" />
-        <div className="absolute inset-1/4 text-center font-bold text-[150px] leading-[176px] text-white">
+    <Link
+      to={path}
+      className={`block w-full ${backgroundColor} rounded-2xl shadow-lg drop-shadow-xl hover:shadow-lg transition-shadow `}
+    >
+      <div className="flex items-center justify-center py-32 px-12">
+        <span className="font-bold text-white text-xl md:text-3xl lg:text-4xl text-center">
           {text}
-        </div>
+        </span>
       </div>
     </Link>
   );

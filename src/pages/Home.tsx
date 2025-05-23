@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import CategoryCard from "../components/ui/CategoryCard";
 import ProductCard from "../components/ui/ProductCard";
 import type { Product } from "../types/product";
-import { fetchAllClothingProducts } from "../services/FakeStoreService";
+import { fetchFlashSaleProducts } from "../services/FakeStoreService";
 
 export default function Home() {
   const [flashSaleProducts, setFlashSaleProducts] = useState<Product[]>([]);
@@ -14,7 +14,7 @@ export default function Home() {
       try {
         setLoading(true);
         setError(null);
-        const allProducts = await fetchAllClothingProducts();
+        const allProducts = await fetchFlashSaleProducts();
         setFlashSaleProducts(allProducts);
       } catch (err) {
         setError(
@@ -28,24 +28,22 @@ export default function Home() {
     loadProducts();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading) return <div className="text-center py-10">Loading...</div>;
+  if (error)
+    return <div className="text-center py-10 text-red-500">Error: {error}</div>;
 
   return (
-    <div className="container mx-auto px-4 py-32">
-      <section className="mb-16">
-        <h2 className="text-3xl font-bold mb-8">Flash Sale</h2>
+    <div className="w-lvw mx-auto px-8 md:px-6 lg:px-16 my-12">
+      <section className="mb-14">
+        <h2 className="text-2xl font-bold mb-12">Flash Sale</h2>
         <div className="relative">
-          <div className="flex overflow-x-auto pb-4 -mx-2 scrollbar-hide">
+          <div className="flex overflow-x-auto gap-8 scrollbar-hide pb-6">
             {flashSaleProducts.map((product) => (
-              <div
-                key={product.id}
-                className="flex-shrink-0 px-2 w-1/4 min-w-[300px]"
-              >
+              <div key={product.id} className="flex-shrink-0 w-[300px]">
                 <ProductCard
                   title={product.title}
                   description={product.description}
-                  price={`$${product.price}`}
+                  price={product.price}
                   imageUrl={product.image}
                   category={product.category}
                 />
@@ -55,18 +53,20 @@ export default function Home() {
         </div>
       </section>
 
-      <section>
-        <h2 className="text-2xl font-bold mb-6">Shop by Category</h2>
-        <CategoryCard
-          text="Mens Clothing"
-          backgroundColor="bg-mens"
-          path="/mens-clothing"
-        />
-        <CategoryCard
-          text="Womens Clothing"
-          backgroundColor="bg-womens"
-          path="womens-clothing"
-        />
+      <section className="mb-14">
+        <h2 className="text-2xl font-bold mb-12">Categories</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <CategoryCard
+            text="Men's Clothing"
+            backgroundColor="bg-mens"
+            path="/mens-clothing"
+          />
+          <CategoryCard
+            text="Women's Clothing"
+            backgroundColor="bg-womens"
+            path="/womens-clothing"
+          />
+        </div>
       </section>
     </div>
   );

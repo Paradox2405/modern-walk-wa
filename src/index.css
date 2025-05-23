@@ -1,17 +1,13 @@
 @import "tailwindcss";
-
-:root {
-  --font-display: "roboto", "sans-serif";
-  color: #0e0e0e;
-  background-color: #f5f5f5;
-  --color-bg-primary: #2bd9af;
+@body {
+  @apply bg-background;
 }
-
-@layer utilities {
-  .bg-mens {
-    color: #2bd9af;
-  }
-  .bg-womens {
-    color: #ff5e84;
-  }
+@theme {
+  --font-display: "roboto", "sans-serif";
+  --color-background: #f5f5f5;
+  --color-black-font: #0e0e0e;
+  --color-white-font: #ffffff;
+  --color-price-font: #0e42fd;
+  --color-mens: #2bd9af;
+  --color-womens: #ff5e84;
 }

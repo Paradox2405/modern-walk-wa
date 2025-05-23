@@ -8,7 +8,7 @@ export const fetchProductsByCategory = async (
     const response = await fetch(
       `https://fakestoreapi.com/products/category/${encodeURIComponent(
         category
-      )}`
+      )}?sort=desc`
     );
 
     if (!response.ok) {
@@ -25,18 +25,32 @@ export const fetchProductsByCategory = async (
   }
 };
 
-export const fetchAllClothingProducts = async (): Promise<Product[]> => {
+export const fetchFlashSaleProducts = async (): Promise<Product[]> => {
   try {
     const [mensProducts, womensProducts] = await Promise.all([
       fetchProductsByCategory("men's clothing"),
       fetchProductsByCategory("women's clothing"),
     ]);
-    const allProducts = [...mensProducts, ...womensProducts];
+
     LocalStorageService.saveMensClothing(mensProducts);
     LocalStorageService.saveWomensClothing(womensProducts);
-    return allProducts;
+    return mensProducts
+      .flatMap((mensItem, i) => [mensItem, womensProducts[i]])
+      .filter(Boolean);
   } catch (error) {
     console.error("Error fetching products:", error);
     return [];
   }
+};
+
+export const fetchMensClothing = async (): Promise<Product[]> => {
+  const products = await fetchProductsByCategory("men's clothing");
+  LocalStorageService.saveMensClothing(products);
+  return products;
+};
+
+export const fetchWomensClothing = async (): Promise<Product[]> => {
+  const products = await fetchProductsByCategory("women's clothing");
+  LocalStorageService.saveWomensClothing(products);
+  return products;
 };

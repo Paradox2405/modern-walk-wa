@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ProductCard from "../components/ui/ProductCard";
 import type { Product } from "../types/product";
 import { LocalStorageService } from "../services/LocalStorageService";
-import { fetchAllClothingProducts } from "../services/FakeStoreService";
+import { fetchWomensClothing } from "../services/FakeStoreService";
 
 export default function WomensClothing() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -22,13 +22,8 @@ export default function WomensClothing() {
           setLoading(false);
           return;
         }
-
-        const allProducts = await fetchAllClothingProducts();
-
-        const mensProducts = allProducts.filter(
-          (product) => product.category === "women's clothing"
-        );
-        setProducts(mensProducts);
+        const womensProducts = await fetchWomensClothing();
+        setProducts(womensProducts);
       } catch (err) {
         setError(
           err instanceof Error ? err.message : "Failed to load products"
@@ -57,7 +52,7 @@ export default function WomensClothing() {
               <ProductCard
                 title={product.title}
                 description={product.description}
-                price={`$${product.price}`}
+                price={product.price}
                 imageUrl={product.image}
                 category={product.category}
               />

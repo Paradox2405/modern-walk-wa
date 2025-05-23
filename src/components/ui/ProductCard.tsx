@@ -41,7 +41,7 @@ export default function ProductCard({
           </span>
         </div>
         {description && (
-          <p className="text-black-font font-normal text-center line-clamp-3">
+          <p className="text-black-font font-normal text-center line-clamp-4 px-4 ">
             {description}
           </p>
         )}
